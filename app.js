@@ -5,10 +5,10 @@ function Book(title, author, isbn) {
   this.isbn = isbn;
 }
 
-
 // UI Constructor
 function UI() {}
 
+// Create UI prototype to add the field values to existing table.
 UI.prototype.addBooktoList = function(book) {
   const list = document.getElementById("book-list");
   // Create TR element
@@ -22,6 +22,13 @@ UI.prototype.addBooktoList = function(book) {
   `;
 
   list.appendChild(row);
+}
+
+// Clear Fields prototype
+UI.prototype.clearFields = function() {
+  document.getElementById("title").value = " ";
+  document.getElementById("author").value = " ";
+  document.getElementById("isbn").value = " ";
 }
 
 // Event Listeners
@@ -40,6 +47,9 @@ let eventOne = document.getElementById("book-form").addEventListener("submit",
 
     // Add Book to List
     ui.addBooktoList(book);
+
+    // Clear Fields
+    ui.clearFields();
 
     e.preventDefault();
   });
