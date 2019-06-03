@@ -31,6 +31,27 @@ UI.prototype.clearFields = function() {
   document.getElementById("isbn").value = " ";
 }
 
+// Create error message prototype
+UI.prototype.showAlert = function(message, className) {
+// Create the Div for Error Message
+const div = document.createElement("div");
+// Add the class
+div.className = `alert ${className}`;
+// Add text
+//div.appendChild(document.createTextNode(message));
+div.innerHTML = message;
+// Get parent
+const container = document.querySelector(".container");
+const form = document.querySelector("#book-form");
+// Append
+container.insertBefore(div, form);
+// Set Timeout
+setTimeout(() => {
+  document.querySelector(".alert").remove();
+}, 3000);
+console.log(div);
+}
+
 // Event Listeners
 let eventOne = document.getElementById("book-form").addEventListener("submit", 
   function(e) {
@@ -45,11 +66,20 @@ let eventOne = document.getElementById("book-form").addEventListener("submit",
     // Create a UI from the UI Constructor
     const ui = new UI();
 
+    // Validation
+    if(title === "" || author === "" || isbn === "") {
+      // Error Message
+      ui.showAlert("Please fill in all fields", "error");
+    } else {
     // Add Book to List
     ui.addBooktoList(book);
 
+    // Show Success Message
+    ui.showAlert("Book Added!", "success");
+
     // Clear Fields
     ui.clearFields();
+    }
 
     e.preventDefault();
   });
