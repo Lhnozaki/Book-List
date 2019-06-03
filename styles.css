@@ -1,7 +1,7 @@
-.success, .error {
-color: white;
-padding: 5px;
-margin: 5px 0px 15px 0px;
+.success, .error, .removed {
+  color: white;
+  padding: 5px;
+  margin: 5px 0px 15px 0px;
 }
 
 .success {
@@ -10,4 +10,12 @@ margin: 5px 0px 15px 0px;
 
 .error {
   background: red;
+}
+
+a {
+  text-decoration: none;
+}
+
+.removed {
+  background: grey;
 }

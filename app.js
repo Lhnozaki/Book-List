@@ -26,9 +26,9 @@ UI.prototype.addBooktoList = function(book) {
 
 // Clear Fields prototype
 UI.prototype.clearFields = function() {
-  document.getElementById("title").value = " ";
-  document.getElementById("author").value = " ";
-  document.getElementById("isbn").value = " ";
+  document.getElementById("title").value = "";
+  document.getElementById("author").value = "";
+  document.getElementById("isbn").value = "";
 }
 
 // Create error message prototype
@@ -38,8 +38,7 @@ const div = document.createElement("div");
 // Add the class
 div.className = `alert ${className}`;
 // Add text
-//div.appendChild(document.createTextNode(message));
-div.innerHTML = message;
+div.appendChild(document.createTextNode(message));
 // Get parent
 const container = document.querySelector(".container");
 const form = document.querySelector("#book-form");
@@ -49,10 +48,17 @@ container.insertBefore(div, form);
 setTimeout(() => {
   document.querySelector(".alert").remove();
 }, 3000);
-console.log(div);
+//console.log(div);
 }
 
-// Event Listeners
+// Delete Book Prototype
+UI.prototype.deleteBook = function(target) {
+  if(target.className === "delete") {
+    target.parentElement.parentElement.remove();
+  }
+}
+
+// Event Listener to add new book to list
 let eventOne = document.getElementById("book-form").addEventListener("submit", 
   function(e) {
     // Get Form Values
@@ -83,3 +89,19 @@ let eventOne = document.getElementById("book-form").addEventListener("submit",
 
     e.preventDefault();
   });
+
+  // Delete book from list with "X" link.
+  document.getElementById("book-list").addEventListener("click", remove);
+
+  function remove(e) {
+    // re-declare variable for ui
+    const ui = new UI();
+
+    // Delete Book
+    ui.deleteBook(e.target);
+
+    // Show Message
+    ui.showAlert("Book Removed!", "removed");
+
+    e.preventDefault();
+  }
